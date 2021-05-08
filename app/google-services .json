@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367830848215",
+    "project_id": "booksnotes-ac6dc",
+    "storage_bucket": "booksnotes-ac6dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367830848215:android:82c240eb2822ab9b795692",
+        "android_client_info": {
+          "package_name": "it.pams.booksnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367830848215-if9c0aquv1hqu0kjmhk57sfdt6k17kah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXWyfsGyGcuCQokbQB4aBuw8ZRFP5wkW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367830848215-if9c0aquv1hqu0kjmhk57sfdt6k17kah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

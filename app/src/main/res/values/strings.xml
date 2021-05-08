@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">BooksNotes</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registrati">Registrati</string>
+    <string name="non_sei_registrato">Non sei registrato?</string>
+    <string name="icona_app">icona app</string>
+    <string name="icona_lock">icona lock</string>
+    <string name="icona_email">icona email</string>
+    <string name="e_potrai_usufruire_servizi">e potrai usufruire servizi....</string>
+    <string name="login">Login</string>
+    <string name="icona_people">icona people</string>
+    <string name="username">Username</string>
+    <string name="sei_gi_registrato">sei già registrato?</string>
+    <string name="registratiBtn">REGISTRATI</string>
+    <string name="registratiTitle">Registrati</string>
+    <!--string name="app_name">BooksNotes</string>
+    <!- Home Page-->
+    <string name="home_page_search">Cerca</string>
+    <string name="home_page_last_article_section">Ultimi annunci inseriti</string>
+    <string name="home_page_sezioni">Esplora le nostre sezioni</string>
+    <string name="home_page_article_name">Nome dell\'articolo</string>
+    <string name="home_page_price">Prezzo</string>
+    <!-- Aerea personal-->
+    <string name="item_article_name">Nome dell\'articolo</string>
+    <string name="item_price">Prezzo</string>
+    <!-- Messages-->
+    <!-- Insertion article-->
+    <string name="add_article">Inserisci Annuncio</string>
+    <string name="add_article_upload_button">caricare immagini</string>
+    <string name="add_article_name_input">@string/item_article_name</string>
+    <string name="add_price">@string/item_price</string>
+    <string name="item_article_description_input">Descrizione</string>
+    <string-array name="categorie">
+        <item>Libro</item>
+        <item>Appunti</item>
+    </string-array>
+    <string-array name="categorie1">
+        <item>Appunti</item>
+        <item>Libro</item>
+    </string-array>
+    <!-- popup Insertion article-->
+    <string name="popup_article_name">Nome dell\'articolo</string>
+    <string name="popup_article_price_title">Prezzo</string>
+    <string name="popup_article_price_subtitle">value</string>
+    <string name="popup_article_description_title">Descrizione</string>
+    <string name="popup_article_description_subtitle">piccola descrizone</string>
+    <string name="popuptype_article_title"> Categoria </string>
+    <string name="popuptype_article_subtitle"> Appunti </string>
+    <string name="image_appunti">image_appunti</string>
+    <string name="image_libri">image_libri</string>
+    <string name="benvenuto_in_books_ampsnotes">Benvenuto in Books&amp;Notes....</string>
+    <string name="icone_messaggi">icone messaggi</string>
+    <string name="icone_inserisci">icone inserisci</string>
+    <string name="icone_homepage">icone homepage</string>
+    <string name="inserisci">Inserisci</string>
+    <string name="messaggi">Messaggi</string>
+    <string name="aerea">Aerea</string>
+    <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="icona_search">icona search</string>
+    <string name="sezione_libri">sezione libri</string>
+    <string name="sezione_appunti">sezione appunti</string>
+    <string name="categoria">Categoria:</string>
+    <string name="_10">10€</string>
+    <string name="sous_la_cendres_le_feu">Sous la cendres le feu</string>
+    <string name="evelyne">Evelyne</string>
+
+
+</resources>
