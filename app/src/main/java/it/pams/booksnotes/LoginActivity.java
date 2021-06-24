@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-      //definire a livello globale le variabili e costanti
+      //(istanziare )definisco a livello globale le variabili e costanti
     EditText mEmail;
     EditText mPassword;
     private FirebaseAuth mAuth;
 
-
+    // alla creazione dell'activity viene inserito il layout activity_login e inizializzare
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,18 +50,18 @@ public class LoginActivity extends AppCompatActivity {
             String email = user.getEmail();
             Intent intent3 = new Intent(this, MainActivity.class);
 
-            // passare i dati da login a main con putExtra
+            // passare i dati con chiave msg da login a main con putExtra
             intent3.putExtra("msg", email);
             startActivity(intent3);
         }
     }
-
+    //Se la TEXTVIEW tvReg viene cliccato allora con Intent vengo indirizzato nell'activity register
     public void tvRegistratiClick(View view) {
         Log.d("LoginActivity","Registrati click");
         Intent intent1 = new Intent(this,RegisterActivity.class);
         startActivity(intent1);
     }
-
+    //Se il buttone di login viene cliccato allora con Intent vengo indirizzato nell'activity
     public void loginBtnClick(View view) {
         Log.d("LoginActivity","Login button clicked");
         //per collegare variabili ai widgets
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent3);
 
     }
-
+    // dalla documentazione di firebase per verificare  che un utente è stato registrato e è presente nel database
     private void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -91,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("LoginActivity", "signInWithEmailAndPassword:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Toast.makeText(LoginActivity.this, user.getDisplayName(),
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("LoginActivity", "signInWithEmailAndPassword:failure", task.getException());

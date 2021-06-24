@@ -1,27 +1,33 @@
 package it.pams.booksnotes;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.app.Fragment;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 
 public class PopUpBook extends Dialog {
-     Book model;
-     ImageView mpopBookImg;
-     Button mContact;
-     TextView mpopBookName,mpopBookPrice,mpopBookEdition,mpopBookAuthor,mpopBookDescrip;
+    Book model;
+    ImageView mpopBookImg;
+    Button mContact;
+    Communication com;
+    Context c;
+
+    TextView mpopBookName,mpopBookPrice,mpopBookEdition,mpopBookAuthor,mpopBookDescrip;
     public PopUpBook(@NonNull Context context) {
         super(context);
+        this.c=context;
     }
     public Book getBook(Book book){
         model = book;
@@ -40,10 +46,14 @@ public class PopUpBook extends Dialog {
 
     private void setupContact() {
         mContact = findViewById(R.id.bookContact);
+        // com= (Communication)getContext();
         mContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("setupContact","click com");
+                ((MainActivity)c).contactOwner(model.getOwner());
+                dismiss();
+                cancel();
             }
         });
     }
@@ -65,6 +75,7 @@ public class PopUpBook extends Dialog {
         mpopBookDescrip = findViewById(R.id.popBookDescripVal);
         mpopBookDescrip.setText(model.getDescription());
     }
+
 
 
 }

@@ -7,18 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="261dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/white"
-        android:src="@drawable/search1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/home_page_search" />
+
+    <EditText
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:inputType="textAutoComplete"
+        android:hint="Nome autore"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableLeft="@drawable/ic_search" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
@@ -28,10 +27,11 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:isScrollContainer="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+        app:layout_constraintTop_toBottomOf="@+id/search" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

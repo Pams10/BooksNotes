@@ -10,6 +10,7 @@ public class Chat {
     private Long id;
     private String msg;
     private String mittente;
+    private String recipient;
     @ServerTimestamp
     private Date dateSend;
 
@@ -25,13 +26,22 @@ public class Chat {
 
     }
 
-    public Chat(String msg, String mittente) {
+    public Chat(String msg, String mittente,String recipient) {
         this.msg = msg;
         this.mittente = mittente;
+        this.recipient = recipient;
+    }
+
+    public String getRecipient() {
+        return recipient;
     }
 
     public String getMsg() {
         return msg;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public void setMsg(String msg) {

@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,19 +23,31 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Communication  {
 
     private FirebaseAuth mAuth;
 
     @Override
+    public void contactOwner(String str) {
+        recipient(str);
+        Bundle bundle = new Bundle();
+        bundle.putString("recipient",str);
+        Fragment  fr= new MessaggiFragment();
+        fr.setArguments(bundle);
+        FragmentManager fm= getSupportFragmentManager();
+        FragmentTransaction tx= fm.beginTransaction();
+        tx.replace(R.id.fragment_place,fr);
+        tx.commit();
+    }
+    public String recipient (String str){
+        Log.d("Mainactivity","click recipient main");
+        return str;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         //ricevere i dati dell'intent ed estrarli con il metodo getExtras()
         Bundle bundle= getIntent().getExtras();
         mAuth = FirebaseAuth.getInstance();
@@ -65,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
             
         }else if(view == findViewById(R.id.ivMessagi)) {
             Log.d("selezionaFrag", "click su messagi");
+            Bundle bundle = new Bundle();
+            bundle.putString("recipient",null);
             fr= new MessaggiFragment();
+            fr.setArguments(bundle);
+
         }else{
             Log.d("selezionaFrag", "click su home");
             fr = new HomeFragment();
@@ -76,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         tx.replace(R.id.fragment_place,fr);
         tx.commit();
     }
+
 
 
 }

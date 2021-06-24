@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="#D5CBCB"
+                app:backgroundTint="@color/teal_700"
                 android:text="Scaricare Immagine" />
 
             <ImageView
@@ -128,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
-            android:background="@color/blue_dark"
+            app:backgroundTint="@color/teal_700"
             android:text="INSERISCI" />
 
 
@@ -213,9 +213,11 @@
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="50dp"
+                android:textStyle="bold"
+                android:textSize="40dp"
                 android:text="€" />
         </LinearLayout>
 
@@ -230,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="#D5CBCB"
+                app:backgroundTint="@color/teal_700"
                 android:text="Scaricare Immagine" />
 
             <ImageView
@@ -248,7 +250,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
-            android:background="@color/blue_dark"
+            app:backgroundTint="@color/teal_700"
             android:text="INSERISCI" />
 
     </LinearLayout>

@@ -32,10 +32,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,21 +46,17 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
- public class InserisciFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+ public class  InserisciFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     LinearLayout layLibro,layAppunti;
     final String mCategoria = "Appunti";
     FirebaseFirestore db;
     FirebaseStorage storage;
+    FirebaseAuth mAuth;
     Uri imageUri;
-     String photo;
+    String photo;
     StorageReference storageReference;
     EditText mAutore,mPrezzo,mNomeLibro, mDescrizione,mEdzione;
     ImageView mfotoLibro;
@@ -88,6 +86,7 @@ import java.util.UUID;
         super.onActivityCreated(savedInstanceState);
          storage= FirebaseStorage.getInstance();
          storageReference = storage.getReference();
+         mAuth = FirebaseAuth.getInstance();
 
         mAutore = (EditText)getActivity().findViewById(R.id.libroAutore)  ;
         mNomeLibro= (EditText)getActivity().findViewById(R.id.libroNome) ;
@@ -118,10 +117,14 @@ import java.util.UUID;
                 final String description=mDescrizione.getText().toString();
                 final String price=mPrezzo.getText().toString();
                 final String edition=mEdzione.getText().toString();
+                final String owner = mAuth.getCurrentUser().getUid();
 
                 CollectionReference ref = db.collection("Books");
-                Book book = new Book(name,author,description,edition,price,photo);
-                ref.document().set(book).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String id = ref.document().getId();
+
+                Book book = new Book(name,author,description,edition,price,photo,owner,id);
+
+                        ref.document().set(book).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful())
@@ -132,7 +135,7 @@ import java.util.UUID;
                         Log.d("LoginActivity", "reference:failure", task.getException());
                     }
                 });
-//
+
             }
         });
         layLibro=(LinearLayout)getActivity().findViewById(R.id.layLibro);

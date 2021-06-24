@@ -21,6 +21,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
+    // definisco al livello globale le variabili
     private FirebaseAuth mAuth;
     EditText mEmail;
     EditText mPassword;
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword= (EditText)findViewById(R.id.regPassword);
     }
 
-
+    // controlli per la creazione di un utente
     public void registratiBtnClick(View view) {
         Log.d("RegisterActivity","Button Registrati clicked");
         String nome= mNome.getText().toString();
@@ -69,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    //Toast.makeText(RegisterActivity.this, "succes!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "succes!", Toast.LENGTH_SHORT).show();
 
                      setNome(nome);
                     showDialog("Registrazione avvenuta con successo","Successo",android.R.drawable.ic_popup_reminder);
@@ -84,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-
+    // aggiornare il profile che era soltanto email e password agguingendo  il nome
     private void setNome(String nome){
         FirebaseUser user = mAuth.getCurrentUser();
         UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()

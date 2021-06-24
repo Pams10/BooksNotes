@@ -1,28 +1,41 @@
 package it.pams.booksnotes;
 
+
 import com.google.firebase.firestore.Exclude;
 
+
 public class Book {
-    @Exclude
-    private Long id;
-    private String author;
+
+    private String id;
+    private  String author;
     private String name;
     private String edition;
     private String price;
+    private String owner;
     private String description;
-    private String contact;
+    //private String contact;
     private String photo;
    public Book() {
 
     }
 
-    public Book(String name ,String author,String description,String edition,String price,String photo) {
+    public Book(String name ,String author,String description,String edition,String price,String photo,String owner,String id) {
         this.author = author;
         this.name = name;
         this.edition = edition;
         this.price = price;
         this.description = description;
         this.photo=photo;
+         this.owner =owner;
+         this.id=id;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getAuthor() {
@@ -68,22 +81,24 @@ public class Book {
     public String getDescription() {
         return description;
     }
-
-    public Long getId() {
-        return id;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getContact() {
+   /* public String getContact() {
         return contact;
-    }
+    }*/
 
-    public void setContact(String contact) {
+   /* public void setContact(String contact) {
         this.contact = contact;
+    }*/
+
+
+    public String getId() {
+        return id;
     }
+    public void setId(String id) {
+        this.id=id;}
 
 
 
