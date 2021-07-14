@@ -1,27 +1,22 @@
 package it.pams.booksnotes;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Communication  {
 
@@ -43,6 +38,19 @@ public class MainActivity extends AppCompatActivity implements Communication  {
         Log.d("Mainactivity","click recipient main");
         return str;
     }
+
+    private void updateUI() {
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null){
+            Intent intToLogin = new Intent(this, LoginActivity.class);
+            finish();
+
+            startActivity(intToLogin);
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Communication  {
         //ricevere i dati dell'intent ed estrarli con il metodo getExtras()
         Bundle bundle= getIntent().getExtras();
         mAuth = FirebaseAuth.getInstance();
-        setTitle(mAuth.getCurrentUser().getDisplayName());
+       // setTitle(mAuth.getCurrentUser().getDisplayName());
         //String extra = bundle.getString("msg");
         //presentiamo all 'utente i dati recuperati
         // Toast.makeText(this,extra,Toast.LENGTH_LONG).show();
@@ -95,5 +103,8 @@ public class MainActivity extends AppCompatActivity implements Communication  {
     }
 
 
-
+    public void logoutClick(View view) {
+        mAuth.signOut();
+        updateUI();
+    }
 }

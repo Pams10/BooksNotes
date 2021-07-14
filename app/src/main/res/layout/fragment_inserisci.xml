@@ -72,27 +72,6 @@
             android:hint="Numero del semestre"
             android:inputType="number"
             android:paddingLeft="5dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/appuntiPrezzo"
-                android:layout_width="285dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:hint="Prezzo del libro"
-                android:inputType="number"
-                android:paddingLeft="5dp" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:text="€" />
-        </LinearLayout>
         <EditText
             android:id="@+id/editTextTextPersonName"
             android:layout_width="match_parent"
@@ -100,7 +79,31 @@
             android:ems="10"
             android:layout_marginTop="5dp"
             android:inputType="number"
-            android:text="Anno del corso" />
+            android:hint="Anno del corso" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appuntiPrezzo"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:hint="Prezzo degli appunti"
+                android:inputType="number"
+                android:paddingLeft="5dp" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:textStyle="bold"
+                android:textSize="40dp"
+                android:text="€" />
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -111,6 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 app:backgroundTint="@color/teal_700"
                 android:text="Scaricare Immagine" />
 
@@ -118,6 +122,7 @@
                 android:id="@+id/fotoAppunti"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_camera" />
 

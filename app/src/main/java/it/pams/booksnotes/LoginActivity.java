@@ -45,13 +45,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         //Se l'utente è loggato open activity main
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             String email = user.getEmail();
             Intent intent3 = new Intent(this, MainActivity.class);
 
             // passare i dati con chiave msg da login a main con putExtra
-            intent3.putExtra("msg", email);
+            //intent3.putExtra("msg", email);
             startActivity(intent3);
         }
     }
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w("LoginActivity", "signInWithEmailAndPassword:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            updateUI(null);
                         }
                     }
                 });

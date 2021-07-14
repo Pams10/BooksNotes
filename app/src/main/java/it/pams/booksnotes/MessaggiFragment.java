@@ -79,8 +79,9 @@ public class MessaggiFragment extends Fragment  {
     private void fetchMsg() {
         Log.d("messageFragment","fetch");
          adapter = new ChatAdapter( mAuth.getCurrentUser().getEmail());
+        // Query query =  db.collection("Messages").whereEqualTo("recipient",mAuth.getCurrentUser().getUid());
          mrecyclerView.setAdapter(adapter);
-        db.collection("Messages").addSnapshotListener( new EventListener<QuerySnapshot>() {
+        db.collection("Messages").whereEqualTo("recipient",mAuth.getCurrentUser().getEmail()).addSnapshotListener( new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(error !=null)
@@ -121,7 +122,7 @@ public class MessaggiFragment extends Fragment  {
     private void sendMsg() {
         String messaggio = mMessaggio.getText().toString();
         if((!messaggio.equals(null)) && (!str.equals(null))){
-            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getDisplayName(),str);
+            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getEmail(),str);
             CollectionReference ref = db.collection("Messages");
             ref.document().set(chat).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -142,7 +143,7 @@ public class MessaggiFragment extends Fragment  {
     public void recip(String string){
         String messaggio = mMessaggio.getText().toString();
         if(!messaggio.equals(null)){
-            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getDisplayName(),string);
+            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getUid(),string);//getDisplayName()
             CollectionReference ref = db.collection("Messages");
             ref.document().set(chat).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

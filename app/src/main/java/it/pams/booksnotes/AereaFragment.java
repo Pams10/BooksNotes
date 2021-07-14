@@ -42,15 +42,8 @@ public class AereaFragment extends Fragment {
         mEmail =(TextView)getActivity().findViewById(R.id.emailAerea);
         mName.setText(mAuth.getCurrentUser().getDisplayName());
         mEmail.setText(mAuth.getCurrentUser().getEmail());
-        Toast.makeText( getActivity(),mAuth.getCurrentUser().getDisplayName(),Toast.LENGTH_SHORT).show();
         mbtnModif=(Button)getActivity().findViewById(R.id.btnModif);
 
-        /*mbtnModif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
     }
 
     @Override
@@ -65,7 +58,7 @@ public class AereaFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db= FirebaseFirestore.getInstance();
         CollectionReference ref = db.collection("Books");
-        Query query = ref.whereEqualTo("owner",mAuth.getCurrentUser().getUid()).orderBy("author",Query.Direction.DESCENDING);
+        Query query = ref.whereEqualTo("owner",mAuth.getCurrentUser().getEmail()).orderBy("author",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Book> options = new FirestoreRecyclerOptions.Builder<Book>()
                 .setQuery(query, Book.class)
                 .build();

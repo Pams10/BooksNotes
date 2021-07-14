@@ -117,7 +117,7 @@ import java.util.UUID;
                 final String description=mDescrizione.getText().toString();
                 final String price=mPrezzo.getText().toString();
                 final String edition=mEdzione.getText().toString();
-                final String owner = mAuth.getCurrentUser().getUid();
+                final String owner = mAuth.getCurrentUser().getEmail();
 
                 CollectionReference ref = db.collection("Books");
                 String id = ref.document().getId();
