@@ -57,6 +57,7 @@ import java.util.UUID;
     FirebaseAuth mAuth;
     Uri imageUri;
     String photo;
+
     StorageReference storageReference;
     EditText mAutore,mPrezzo,mNomeLibro, mDescrizione,mEdzione;
     ImageView mfotoLibro;
@@ -107,37 +108,43 @@ import java.util.UUID;
         });
 
 
-        mLibroAddBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = FirebaseFirestore.getInstance();
+            mLibroAddBtn.setOnClickListener(new View.OnClickListener() {
 
-                final String author=mAutore.getText().toString();
-                final String name= mNomeLibro.getText().toString() ;
-                final String description=mDescrizione.getText().toString();
-                final String price=mPrezzo.getText().toString();
-                final String edition=mEdzione.getText().toString();
-                final String owner = mAuth.getCurrentUser().getEmail();
+             @Override
+             public void onClick(View v) {
 
-                CollectionReference ref = db.collection("Books");
-                String id = ref.document().getId();
+                 final String author=mAutore.getText().toString();
+                 final String name= mNomeLibro.getText().toString() ;
+                 final String description=mDescrizione.getText().toString();
+                 final String price=mPrezzo.getText().toString();
+                 final String edition=mEdzione.getText().toString();
+                 final String owner = mAuth.getCurrentUser().getEmail();
+                 if((name.equals(""))||(author.equals(""))||(description.equals(""))||(edition.equals(" "))||(price.equals(""))||(owner.equals(""))) {
 
-                Book book = new Book(name,author,description,edition,price,photo,owner,id);
+                     Toast.makeText(getActivity(), "Compilare tutti i campi!", Toast.LENGTH_SHORT).show();
+                 }else {
+                     db = FirebaseFirestore.getInstance();
 
-                        ref.document().set(book).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful())
+                     CollectionReference ref = db.collection("Books");
+                     String id = ref.document().getId();
 
-                            Toast.makeText( getActivity(),"Succes",Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getActivity(),"Failed  ",Toast.LENGTH_SHORT).show();
-                        Log.d("LoginActivity", "reference:failure", task.getException());
-                    }
-                });
+                     Book book = new Book(name, author, description, edition, price, photo, owner, id);
+                     ref.document().set(book).addOnCompleteListener(new OnCompleteListener<Void>() {
+                         @Override
+                         public void onComplete(@NonNull Task<Void> task) {
 
-            }
-        });
+                             if (task.isSuccessful())
+
+                                 Toast.makeText(getActivity(), "Succes", Toast.LENGTH_SHORT).show();
+                             else
+                                 Toast.makeText(getActivity(), "Failed  ", Toast.LENGTH_SHORT).show();
+                             Log.d("LoginActivity", "reference:failure", task.getException());
+                         }
+                     });
+                 }
+             }
+           });
+
         layLibro=(LinearLayout)getActivity().findViewById(R.id.layLibro);
         layAppunti=(LinearLayout)getActivity().findViewById(R.id.layAppunti);
         layLibro.setVisibility(View.VISIBLE);

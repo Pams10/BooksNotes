@@ -51,13 +51,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return messages.size();
     }
     public class ChatViewHolder extends RecyclerView.ViewHolder {
-        TextView mIdSender, mMsg , mMailMsg;
+        TextView mIdSender, mMsg , mMailMsg,mCont;
         //LinearLayout.LayoutParams params;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             mIdSender= itemView.findViewById(R.id.idSender)  ;
             mMsg= itemView.findViewById(R.id.itemMmsg) ;
             mMailMsg=itemView.findViewById(R.id.itemMailMsg) ;
+            mCont =itemView.findViewById(R.id.textView21);
 
            // params =(LinearLayout.LayoutParams)mIdSender.getLayoutParams();
         }
@@ -65,16 +66,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         public void bindView(Chat message) {
             mIdSender.setText(String.valueOf(message.getDateSend()));
             mMsg.setText(message.getMsg());
-            mMailMsg.setText(message.getMittente());
-            mMailMsg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + mMailMsg.getText().toString()));
-                    intent.putExtra(Intent.EXTRA_SUBJECT,"BooksNotes");
-                    context.startActivity(intent);
-                }
-            });
-
+            if(message.getMittente().equals(currentUser)){
+                mMailMsg.setVisibility(View.GONE);
+                mCont.setVisibility(View.GONE);
+            }
+            else {
+                mMailMsg.setText(message.getMittente());
+                mMailMsg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + mMailMsg.getText().toString()));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "BooksNotes");
+                        context.startActivity(intent);
+                    }
+                });
+            }
         }
     }
     public void setData(List<Chat> messages) {

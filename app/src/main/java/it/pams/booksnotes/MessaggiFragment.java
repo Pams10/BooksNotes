@@ -28,9 +28,11 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -43,6 +45,7 @@ public class MessaggiFragment extends Fragment  {
     private String str;
     Button mSendMsg;
     EditText mMessaggio;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -60,14 +63,14 @@ public class MessaggiFragment extends Fragment  {
             startActivity(sign);
         }else{
             String displayName = currentUser.getDisplayName();
-             fetchMsg();
+            fetchMsg();
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         str = this.getArguments().getString("recipient");
+        str = this.getArguments().getString("recipient");
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_messaggi, container, false);
         mrecyclerView = (RecyclerView)view.findViewById(R.id.recyclerviewMsg)  ;
@@ -78,89 +81,85 @@ public class MessaggiFragment extends Fragment  {
 
     private void fetchMsg() {
         Log.d("messageFragment","fetch");
-         adapter = new ChatAdapter( mAuth.getCurrentUser().getEmail());
+        adapter = new ChatAdapter( mAuth.getCurrentUser().getEmail());
         // Query query =  db.collection("Messages").whereEqualTo("recipient",mAuth.getCurrentUser().getUid());
-         mrecyclerView.setAdapter(adapter);
-        db.collection("Messages").whereEqualTo("recipient",mAuth.getCurrentUser().getEmail()).addSnapshotListener( new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(error !=null)
-                            Log.w("Message", error.getMessage(), error);
-                        else{
-                            List<Chat> messages= value.toObjects(Chat.class);
+        //.whereEqualTo("recipient",mAuth.getCurrentUser().getEmail())
+        mrecyclerView.setAdapter(adapter);
+
+        db.collection("Messages")
+                .addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error !=null)
+                    Log.w("Message", error.getMessage(), error);
+                else{
+
+
+                    List<Chat> messages= value.toObjects(Chat.class);
+                    for(Chat chat: messages){
+
+                        if(chat.getMittente().equals(mAuth.getCurrentUser().getEmail())|| chat.getRecipient().equals(mAuth.getCurrentUser().getEmail()))
                             adapter.setData(messages);
-
-                        }
-
                     }
-                });
+
+                }
+
+            }
+        });
 
     }
 
-    private void initUI(){
-        db =  FirebaseFirestore.getInstance();
+    private void initUI() {
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        mMessaggio =(EditText)getActivity().findViewById(R.id.message);
-        mSendMsg = (Button)getActivity().findViewById(R.id.sendmsg);
+        mMessaggio = (EditText) getActivity().findViewById(R.id.message);
+        mSendMsg = (Button) getActivity().findViewById(R.id.sendmsg);
         mMessaggio.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-                sendMsg();
+                // sendMsg();
                 return true;
             }
         });
-        mSendMsg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              sendMsg();
-            }
-        });
+           mSendMsg.setOnClickListener(new View.OnClickListener() {
+              @Override
+             public void onClick(View v) {
+                sendMsg();
+             }
+           });
+
     }
 
     private void sendMsg() {
         String messaggio = mMessaggio.getText().toString();
-        if((!messaggio.equals(null)) && (!str.equals(null))){
-            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getEmail(),str);
-            CollectionReference ref = db.collection("Messages");
-            ref.document().set(chat).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
+        if((str !=null)) {
+            if (!messaggio.equals(null)){
+                Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getEmail(), str);
+                CollectionReference ref = db.collection("Messages");
+                ref.document().set(chat).addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
 
                         Toast.makeText(getActivity(), "Succes", Toast.LENGTH_SHORT).show();
                         mMessaggio.setText("");
-                    }
-                    else
-                        Toast.makeText(getActivity(),"Failed  ",Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getActivity(), "Failed  ", Toast.LENGTH_SHORT).show();
                     Log.d("MessagiFragment", "reference:failure", task.getException());
 
-                }
-            });
-        }
-    }
-    public void recip(String string){
-        String messaggio = mMessaggio.getText().toString();
-        if(!messaggio.equals(null)){
-            Chat chat = new Chat(messaggio, mAuth.getCurrentUser().getUid(),string);//getDisplayName()
-            CollectionReference ref = db.collection("Messages");
-            ref.document().set(chat).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
+                  }
+                });
+           }
 
-                        Toast.makeText(getActivity(), "Succes", Toast.LENGTH_SHORT).show();
-                        mMessaggio.setText("");
-                    }
-                    else
-                        Toast.makeText(getActivity(),"Failed  ",Toast.LENGTH_SHORT).show();
-                    Log.d("MessagiFragment", "reference:failure", task.getException());
-
-                }
-            });
+        }else{
+            Toast.makeText(getActivity(), "Scegli un articolo di cui vuoi conttatare il venditore", Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
+
 
 }

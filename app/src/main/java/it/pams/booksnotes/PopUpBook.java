@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 
 public class PopUpBook extends Dialog {
     Book model;
-    ImageView mpopBookImg;
+    ImageView mpopBookImg , mImag;
     Button mContact;
     Communication com;
     Context c;
@@ -60,6 +60,14 @@ public class PopUpBook extends Dialog {
     private void setupDialog() {
         mpopBookImg = findViewById(R.id.popBookImg);
         Glide.with(getContext()).load(Uri.parse(model.getPhoto())).into(mpopBookImg);
+        mImag =findViewById(R.id.imageView3);
+        mImag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                cancel();
+            }
+        });
         mpopBookName = findViewById(R.id.popBookName);
         mpopBookName.setText(model.getName());
 
